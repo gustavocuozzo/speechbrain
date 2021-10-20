@@ -245,6 +245,9 @@ def distribute_overlap(lol):
     [['r1', 5.5, 8.5, 's1'], ['r1', 8.5, 11.0, 's2'], ['r1', 11.5, 12.5, 's2'], ['r1', 12.5, 15.0, 's1']]
     """
 
+    if len(lol) == 1:
+        return lol
+
     new_lol = []
     sseg = lol[0]
 
@@ -773,7 +776,7 @@ class Spec_Clust_unorm:
     >>> # print(clust.labels_) # [0 0 0 2 2 2 1 1 1 1]
     """
 
-    def __init__(self, min_num_spkrs=2, max_num_spkrs=10):
+    def __init__(self, min_num_spkrs=1, max_num_spkrs=10):
 
         self.min_num_spkrs = min_num_spkrs
         self.max_num_spkrs = max_num_spkrs
@@ -911,14 +914,17 @@ class Spec_Clust_unorm:
         else:
             lambda_gap_list = self.getEigenGaps(lambdas[1 : self.max_num_spkrs])
 
-            num_of_spk = (
-                np.argmax(
-                    lambda_gap_list[
-                        : min(self.max_num_spkrs, len(lambda_gap_list))
-                    ]
+            if len(lambda_gap_list) == 0:
+                num_of_spk = 1
+            else:
+                num_of_spk = (
+                    np.argmax(
+                        lambda_gap_list[
+                            : min(self.max_num_spkrs, len(lambda_gap_list))
+                        ]
+                    )
+                    + 2
                 )
-                + 2
-            )
 
             if num_of_spk < self.min_num_spkrs:
                 num_of_spk = self.min_num_spkrs
