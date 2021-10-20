@@ -948,6 +948,8 @@ class Spec_Clust_unorm:
         self.labels_ : self
             Labels for each sample embedding.
         """
+        if k > len(emb):
+            k = len(emb)
         _, self.labels_, _ = k_means(emb, k)
 
     def getEigenGaps(self, eig_vals):
