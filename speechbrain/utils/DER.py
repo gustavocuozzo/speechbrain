@@ -38,6 +38,7 @@ def rectify(arr):
 def DER(
     ref_rttm,
     sys_rttm,
+    uem_file=None,
     ignore_overlap=False,
     collar=0.25,
     individual_file_scores=False,
@@ -51,6 +52,9 @@ def DER(
         The path of reference/groundtruth RTTM file.
     sys_rttm : str
         The path of the system generated RTTM file.
+    uem_file: str
+        The path of uem file.
+        Files are used to specify the scoring regions within each recording.
     individual_file : bool
         If True, returns scores for each file in order.
     collar : float
@@ -96,6 +100,11 @@ def DER(
         "-c",
         str(collar),
     ]
+
+    if uem_file:
+        cmd.append("-u")
+        cmd.append(uem_file)
+
     if ignore_overlap:
         cmd.append("-1")
 
