@@ -721,7 +721,7 @@ class Spec_Clust_unorm:
     Example
     -------
     >>> from speechbrain.processing import diarization as diar
-    >>> clust = diar.Spec_Clust_unorm(min_num_spkrs=2, max_num_spkrs=10)
+    >>> clust = diar.Spec_Clust_unorm(min_num_spkrs=1, max_num_spkrs=10)
     >>> emb = [[ 2.1, 3.1, 4.1, 4.2, 3.1],
     ... [ 2.2, 3.1, 4.2, 4.2, 3.2],
     ... [ 2.0, 3.0, 4.0, 4.1, 3.0],
@@ -1001,7 +1001,7 @@ def do_spec_clustering(
     """
 
     if affinity_type == "cos":
-        clust_obj = Spec_Clust_unorm(min_num_spkrs=2, max_num_spkrs=10)
+        clust_obj = Spec_Clust_unorm(min_num_spkrs=1, max_num_spkrs=10)
         k_oracle = k  # use it only when oracle num of speakers
         clust_obj.do_spec_clust(diary_obj.stat1, k_oracle, pval)
         labels = clust_obj.labels_
@@ -1075,7 +1075,7 @@ def do_kmeans_clustering(
         # This is just for experimentation.
         # Not doing full spectral clustering. Just re-using the code till
         # estimating num of speakers.
-        clust_obj = Spec_Clust_unorm(min_num_spkrs=2, max_num_spkrs=10)
+        clust_obj = Spec_Clust_unorm(min_num_spkrs=1, max_num_spkrs=10)
 
         # clust_obj.do_spec_clust(diary_obj.stat1, k_oracle, pval)
         # labels = clust_obj.labels_
